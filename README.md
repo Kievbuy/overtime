@@ -3,7 +3,7 @@
 ## Key requirement: company needs documentation that salaried employees did or did not get overtime each week
 
 ### Models
-* Post -> date:date rationale:text
+* `Post -> date:date rationale:text`
 * `User -> Device`
 * `AdminUser -> STI`
 
