@@ -15,6 +15,9 @@ describe 'navigate' do
 
   describe '#new' do
     before do
+      @user = User.create(email: "test@test.com", password: "123456789", password_confirmation: "123456789",
+                         first_name: "John", last_name: "Snow")
+      login_as(@user, scope: :user)
       visit new_post_path
     end
 
@@ -29,6 +32,7 @@ describe 'navigate' do
       click_on "Create Post"
 
       expect(page).to have_content("Some rationale")
+      expect(User.last.posts.last.user_id).to eq @user.id
     end
   end
 end
