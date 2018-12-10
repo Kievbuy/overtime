@@ -4,8 +4,8 @@
 
 ### Models
 * Post -> date:date rationale:text
-x User -> Device
-* AdminUser -> STI
+* `User -> Device`
+* `AdminUser -> STI`
 
 ### Features:
 * Approval Workflow
