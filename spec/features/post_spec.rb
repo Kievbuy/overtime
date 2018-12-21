@@ -6,6 +6,10 @@ describe 'navigate' do
       @user = User.create(email: "test@test.com", password: "123456789", password_confirmation: "123456789",
                          first_name: "John", last_name: "Snow")
       login_as(@user, scope: :user)
+
+      post1 = Post.create(date: Date.today, rationale: "Post1", user_id: @user.id)
+      post2 = Post.create(date: Date.today, rationale: "Post2", user_id: @user.id)
+
       visit posts_path
     end
 
@@ -15,6 +19,10 @@ describe 'navigate' do
 
     it 'has a title of Posts' do
       expect(page).to have_content(/Posts/)
+    end
+
+    it 'has a list of posts' do
+      expect(page).to have_content(/Post1|Post2/)
     end
   end
 
