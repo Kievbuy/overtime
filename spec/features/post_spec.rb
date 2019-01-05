@@ -78,4 +78,20 @@ describe 'navigate' do
       expect(page).to have_content("Edited content")
     end
   end
+
+  describe '#delete' do
+    let(:user) { create(:user) }
+    let!(:post) { create(:post, user: user) }
+    before do
+      login_as(user, scope: :user)
+    end
+
+    it 'can be deleted' do
+      visit posts_path
+
+      click_link ("delete_#{post.id}")
+      expect(page.status_code).to eq(200)
+      expect(Post.count).to eq(0)
+    end
+  end
 end
