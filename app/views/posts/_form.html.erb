@@ -1,7 +1,5 @@
-<h1>Form</h1>
-
 <%= simple_form_for @post, html: { class: 'form-inline' } do |f| %>
-  <%= f.input :date, as: :date, html5: true %>
-  <%= f.input :rationale %>
+  <%= f.input :date, as: :date, html5: true %> <br>
+  <%= f.input :rationale %> <br>
   <%= f.button :submit %>
 <% end %>

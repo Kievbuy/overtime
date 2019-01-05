@@ -2,14 +2,12 @@ require 'rails_helper'
 
 describe 'navigate' do
   describe '#index' do
+    let!(:user)  { create(:user) }
+    let!(:post1) { create(:post, rationale: 'Post1', user: user) }
+    let!(:post2) { create(:post, rationale: 'Post2', user: user) }
+
     before do
-      @user = User.create(email: "test@test.com", password: "123456789", password_confirmation: "123456789",
-                         first_name: "John", last_name: "Snow")
-      login_as(@user, scope: :user)
-
-      post1 = Post.create(date: Date.today, rationale: "Post1", user_id: @user.id)
-      post2 = Post.create(date: Date.today, rationale: "Post2", user_id: @user.id)
-
+      login_as(user, scope: :user)
       visit posts_path
     end
 
@@ -27,10 +25,9 @@ describe 'navigate' do
   end
 
   describe '#new' do
+    let(:user) { create(:user) }
     before do
-      @user = User.create(email: "test@test.com", password: "123456789", password_confirmation: "123456789",
-                         first_name: "John", last_name: "Snow")
-      login_as(@user, scope: :user)
+      login_as(user, scope: :user)
       visit new_post_path
     end
 
@@ -45,7 +42,33 @@ describe 'navigate' do
       click_on "Create Post"
 
       expect(page).to have_content("Some rationale")
-      expect(User.last.posts.last.user_id).to eq @user.id
+      expect(User.last.posts.last.user_id).to eq user.id
+    end
+  end
+
+  describe '#edit' do
+    let(:post) { create(:post) }
+    before do
+      login_as(post.user, scope: :user)
+    end
+
+    it 'can be reached by clicking edit on index page' do
+      visit posts_path
+
+      click_link("edit_#{post.id}")
+      expect(page.status_code).to eq(200)
+    end
+
+    it 'can be edited' do
+      visit edit_post_path(post)
+
+      expect(page.status_code).to eq(200)
+
+      fill_in 'post[date]', with: Date.today
+      fill_in 'post[rationale]', with: "Edited content"
+
+      click_on "Update Post"
+      expect(page).to have_content("Edited content")
     end
   end
 end

@@ -15,7 +15,7 @@
 * Needs to be documented if employee did not log overtime
 
 ### UI:
-* Bootstrap -> formatting
+* `Bootstrap -> formatting`
 
 ### Refactor TODOs:
 * Refactor user association intergration test in feature/post_spec

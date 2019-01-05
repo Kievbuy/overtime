@@ -1,0 +1,10 @@
+<tr>
+  <td><%= post.id %></td>
+  <td><%= post.date.strftime("%d.%m.%Y") %></td>
+  <td><%= post.rationale.truncate(40) %> </td>
+  <td><%= post.user.try(:full_name) %></td>
+  <td width="60"><%= link_to 'Show', post_path(post) %></td>
+  <td width="60"><%= link_to 'Edit', edit_post_path(post), id: "edit_#{post.id}" %></td>
+  <td width="60"><%= link_to 'Delete', post_path(post), method: :delete,
+                                             data: { confirm: 'Are you sure?' }  %></td>
+</tr>

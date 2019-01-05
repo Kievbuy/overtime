@@ -5,8 +5,7 @@ class PostsController < ApplicationController
     @posts = Post.paginate(page: params[:page], per_page: 20)
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @post = Post.new
@@ -19,7 +18,17 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to @post, notice: 'Your post was created successfully'
     else
-      render 'new'
+      render :new
+    end
+  end
+
+  def edit; end
+
+  def update
+    if @post.update(post_params)
+      redirect_to @post, notice: 'Post was successfully updated'
+    else
+      render :edit
     end
   end
 
